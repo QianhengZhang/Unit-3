@@ -5,8 +5,8 @@ window.onload = setMap();
 function setMap(){
 
         //map frame dimensions
-    var width = 2500,
-        height = 1250;
+    var width = window.innerWidth,
+        height = window.innerHeight;
 
     //create new svg container for the map
     var map = d3.select("body")
@@ -17,20 +17,21 @@ function setMap(){
 
     //create Albers equal area conic projection centered on France
     var projection = d3.geoMercator()
+        .center([5, 30])
         .rotate([0, 0])
         .scale(200)
         .translate([width / 2, height / 2]);
     var path = d3.geoPath()
         .projection(projection);
     //use Promise.all to parallelize asynchronous data loading
-    var promises = [d3.csv("data/LifeExpectency2015.csv"),                    
-                    d3.json("data/world.topojson")                 
-                    ];    
-        Promise.all(promises).then(callback);    
+    var promises = [d3.csv("data/LifeExpectency2015.csv"),
+                    d3.json("data/world.topojson")
+                    ];
+        Promise.all(promises).then(callback);
 
-        function callback(data){    
-            csvData = data[0];    
-            world = data[1];    
+        function callback(data){
+            csvData = data[0];
+            world = data[1];
             var worldCountries = topojson.feature(world, world.objects["world-administrative-boundaries"])
             console.log(worldCountries)
             //add Europe countries to map
@@ -39,7 +40,7 @@ function setMap(){
                 .attr("class", "countries")
                 .attr("d", path);
         };
-    
+
     var graticule = d3.geoGraticule()
         .step([20, 20]); //place graticule lines every 5 degrees of longitude and latitude
 
