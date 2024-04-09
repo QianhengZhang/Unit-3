@@ -7,14 +7,8 @@ var expressed = attrArray[0]; //initial attribute
 function setMap(){
 
         //map frame dimensions
-<<<<<<< HEAD
     var width = window.innerWidth * 0.5,
     height = 720;
-=======
-    var width = window.innerWidth,
-        height = window.innerHeight;
-
->>>>>>> 635515356ffb4cc8a47e76ee5ff693221fd05a71
     //create new svg container for the map
     var map = d3.select("body")
         .append("svg")
@@ -23,23 +17,15 @@ function setMap(){
         .attr("height", height);
 
     //create Albers equal area conic projection centered on France
-<<<<<<< HEAD
     projection = d3.geoConicEqualArea()
         .parallels([0, 63.5])
         .rotate([-10, 0])
-=======
-    var projection = d3.geoMercator()
-        .center([5, 30])
-        .rotate([0, 0])
-        .scale(200)
->>>>>>> 635515356ffb4cc8a47e76ee5ff693221fd05a71
         .translate([width / 2, height / 2]);
     var path = d3.geoPath()
         .projection(projection);
     
     setGraticule(map, path);
     //use Promise.all to parallelize asynchronous data loading
-<<<<<<< HEAD
     var promises = [d3.csv("data/LifeExpectency2015.csv"),                    
                     d3.json("data/world.topojson")                 
                     ];    
@@ -47,16 +33,6 @@ function setMap(){
         function callback(data){    
             csvData = data[0];
             world = data[1];    
-=======
-    var promises = [d3.csv("data/LifeExpectency2015.csv"),
-                    d3.json("data/world.topojson")
-                    ];
-        Promise.all(promises).then(callback);
-
-        function callback(data){
-            csvData = data[0];
-            world = data[1];
->>>>>>> 635515356ffb4cc8a47e76ee5ff693221fd05a71
             var worldCountries = topojson.feature(world, world.objects["world-administrative-boundaries"])
             var worldProperties = worldCountries.features;
             worldProperties = joinData(csvData, worldProperties);
@@ -72,16 +48,12 @@ function setMap(){
             setEnumerationUnits(worldProperties, map, path, colorScale);
             setChart(csvData, colorScale);
         };
-<<<<<<< HEAD
     
 
     
 };
 
 function setGraticule(map, path) {
-=======
-
->>>>>>> 635515356ffb4cc8a47e76ee5ff693221fd05a71
     var graticule = d3.geoGraticule()
     .step([20, 20]); //place graticule lines every 20 degrees of longitude and latitude
 
