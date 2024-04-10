@@ -186,10 +186,6 @@ function setChart(csvData, colorScale){
         .attr("class", function(d){
             return "bars " + d.name;
         })
-        // .attr("width", (chartWidth / csvData.length - 1))
-        // .attr("x", function(d, i){
-        //     return i * (chartWidth / csvData.length);
-        // })
         .attr("width", (chartInnerWidth / csvData.length - 1))
         .attr("x", function(d, i){
             return i * (chartInnerWidth / csvData.length) + 27;
@@ -204,27 +200,7 @@ function setChart(csvData, colorScale){
         .attr("y", function(d){
             return yScale(parseFloat(d[expressed])) + 5;
         });
-    // var numbers = chart.selectAll(".numbers")
-    //     .data(csvData)
-    //     .enter()
-    //     .append("text")
-    //     .sort(function(a, b){
-    //         return a[expressed]-b[expressed]
-    //     })
-    //     .attr("class", function(d){
-    //         return "numbers " + d.adm1_code;
-    //     })
-    //     .attr("text-anchor", "middle")
-    //     .attr("x", function(d, i){
-    //         var fraction = chartWidth / csvData.length;
-    //         return i * fraction + (fraction - 1) / 2;
-    //     })
-    //     .attr("y", function(d){
-    //         return chartHeight - yScale(parseFloat(d[expressed])) + 15;
-    //     })
-    //     .text(function(d){
-    //         return d[expressed];
-    //     });
+
     var chartTitle = chart.append("text")
         .attr("x", 30)
         .attr("y", 40)
