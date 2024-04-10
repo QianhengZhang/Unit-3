@@ -38,6 +38,7 @@
     margin: 7px 20px 0 0;
 }
 
+.mapTitle,
 .chartTitle {
     font-family: sans-serif;
     font-size: 1.5em;
@@ -51,7 +52,7 @@
 .chartFrame {
     fill: none;
     stroke: #999;
-    stroke-width: 3px;
+    stroke-width: 1px;
     shape-rendering: crispEdges;
 }
 
@@ -59,7 +60,7 @@
 .axis line {
     fill: none;
     stroke: #999;
-    stroke-width: 1px;
+    stroke-width: 0.2px;
     shape-rendering: crispEdges;
 }
 

@@ -15,7 +15,11 @@ function setMap(){
         .attr("class", "map")
         .attr("width", width)
         .attr("height", height);
-
+    var mapTitle = map.append("text")
+        .attr("x", 30)
+        .attr("y", 40)
+        .attr("class", "mapTitle")
+        .text("Global Life Expectancy Map");
     //create Albers equal area conic projection centered on France
     projection = d3.geoConicEqualArea()
         .parallels([0, 63.5])
@@ -23,16 +27,16 @@ function setMap(){
         .translate([width / 2, height / 2]);
     var path = d3.geoPath()
         .projection(projection);
-    
+
     setGraticule(map, path);
     //use Promise.all to parallelize asynchronous data loading
-    var promises = [d3.csv("data/LifeExpectency2015.csv"),                    
-                    d3.json("data/world.topojson")                 
-                    ];    
-        Promise.all(promises).then(callback);    
-        function callback(data){    
+    var promises = [d3.csv("data/LifeExpectency2015.csv"),
+                    d3.json("data/world.topojson")
+                    ];
+        Promise.all(promises).then(callback);
+        function callback(data){
             csvData = data[0];
-            world = data[1];    
+            world = data[1];
             var worldCountries = topojson.feature(world, world.objects["world-administrative-boundaries"])
             var worldProperties = worldCountries.features;
             worldProperties = joinData(csvData, worldProperties);
@@ -48,9 +52,9 @@ function setMap(){
             setEnumerationUnits(worldProperties, map, path, colorScale);
             setChart(csvData, colorScale);
         };
-    
 
-    
+
+
 };
 
 function setGraticule(map, path) {
@@ -102,31 +106,31 @@ function joinData(csvData, worldProperties) {
 
 function setEnumerationUnits(worldProperties, map, path, colorScale){
     //add France regions to map
-    var countries = map.selectAll(".countries")        
-        .data(worldProperties)        
-        .enter()        
-        .append("path")        
-        .attr("class", function(d){            
-            return "Country: " + d.properties.name;        
-        })        
-        .attr("d", path)        
-            .style("fill", function(d){            
-                var value = d.properties[expressed];            
-                if(value) {                
-                    return colorScale(d.properties[expressed]);            
-                } else {                
-                    return "#ccc";            
-                }    
+    var countries = map.selectAll(".countries")
+        .data(worldProperties)
+        .enter()
+        .append("path")
+        .attr("class", function(d){
+            return "Country: " + d.properties.name;
+        })
+        .attr("d", path)
+            .style("fill", function(d){
+                var value = d.properties[expressed];
+                if(value) {
+                    return colorScale(d.properties[expressed]);
+                } else {
+                    return "#ccc";
+                }
         });
 };
 
 function makeColorScale(data){
     var colorClasses = [
-        "#D4B9DA",
-        "#C994C7",
-        "#DF65B0",
-        "#DD1C77",
-        "#980043"
+        "#edf8e9",
+        "#bae4b3",
+        "#74c476",
+        "#31a354",
+        "#006d2c"
     ];
 
     //create color scale generator
@@ -147,7 +151,7 @@ function makeColorScale(data){
 function setChart(csvData, colorScale){
     //chart frame dimensions
     var chartWidth = window.innerWidth * 0.42,
-        chartHeight = 720,
+        chartHeight = 730,
         leftPadding = 25,
         rightPadding = 2,
         topBottomPadding = 5,
@@ -168,7 +172,7 @@ function setChart(csvData, colorScale){
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
     var yScale = d3.scaleLinear()
-        .range([0, 710])
+        .range([0, 720])
         .domain([100, 0]);
 
     //Example 2.4 line 8...set bars for each province
@@ -183,8 +187,12 @@ function setChart(csvData, colorScale){
             return colorScale(d[expressed]);
         })
         .style('stroke', "#b3afafe5")
+        .style('stroke-width', "0.1px")
         .attr("class", function(d){
-            return "bars " + d.name;
+            return "bars";
+        })
+        .attr("id", function(d){
+            return "bars_" + d.Country;
         })
         .attr("width", (chartInnerWidth / csvData.length - 1))
         .attr("x", function(d, i){
@@ -202,11 +210,11 @@ function setChart(csvData, colorScale){
         });
 
     var chartTitle = chart.append("text")
-        .attr("x", 30)
+        .attr("x", 40)
         .attr("y", 40)
         .attr("class", "chartTitle")
         .text("The value of " + expressed);
-    
+
     var yAxis = d3.axisLeft()
         .scale(yScale);
 
