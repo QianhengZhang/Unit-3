@@ -26,11 +26,13 @@
 
 .gratBackground {
     fill: #D5E3FF;
+    
 }
 
 .map {
     border: medium solid #999;
     margin: 10px 0 0 20px;
+
 }
 
 .chart {
@@ -43,6 +45,8 @@
     font-family: sans-serif;
     font-size: 1.5em;
     font-weight: bold;
+    position: relative;
+    z-index: 1000;
 }
 
 .chartBackground {
@@ -69,9 +73,44 @@
     font-size: 0.8em;
     fill: #999;
 }
+
 .countries {
-    fill: #0e0b0b;
+/* fill: #0e0b0b; */
     stroke: #000000e5;
-    stroke-width: 3px;
+    stroke-width: 1px;
 }
 
+.dropdown {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 10;
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 2px;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 4px #999;
+}
+
+option {
+    font-weight: normal;
+}
+
+.infolabel {    
+    margin: 0 20px 0 0;    
+    position: absolute;
+    height: 100px;
+    min-width: 150px;
+    color: #fff;
+    background-color: #000;
+    border: solid thin #fff;
+    padding: 5px 10px;
+    top: -75px;
+}
+.infolabel h1 {
+    margin: 0 20px 0 0;
+    padding: 0;
+    display: inline-block;
+    line-height: 1em;
+}
