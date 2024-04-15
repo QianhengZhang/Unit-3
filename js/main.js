@@ -31,7 +31,7 @@ function setMap(){
         .attr("x", window.innerWidth * 0.19)
         .attr("y", 40)
         .attr("class", "mapTitle")
-        .text("Global Life Expectancy Map");
+        .text("Global Life Expectancy Map(Zoom and Pan allowed)");
     //create Albers equal area conic projection centered on France
     projection = d3.geoConicEqualArea()
         .parallels([0, 63.5])
