@@ -28,8 +28,8 @@ function setMap(){
         .attr("width", width)
         .attr("height", height);
     var mapTitle = map.append("text")
-        .attr("x", window.innerWidth * 0.19)
-        .attr("y", 40)
+        .attr("x", 20)
+        .attr("y", 80)
         .attr("class", "mapTitle")
         .text("Global Life Expectancy Map(Zoom and Pan allowed)");
     //create Albers equal area conic projection centered on France
@@ -70,7 +70,7 @@ function setMap(){
         .scaleExtent([1, 8])
         .on('zoom', handleZoom);
     map.call(zoom);
-    
+
 };
 
 function setGraticule(map, path) {
@@ -143,7 +143,7 @@ function setEnumerationUnits(worldProperties, map, path, colorScale){
                 } else {
                     return "#ccc";
                 }
-        })            
+        })
         .on("mouseover", function (event, d) {
             highlight(d.properties);
         })
@@ -268,7 +268,7 @@ function setChart(csvData, colorScale){
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
-    
+
     var desc = bars.append("desc").text('{"stroke": "#000", "stroke-width": "0.1px"}');
 
     updateChart(bars, csvData.length, colorScale);
@@ -287,13 +287,13 @@ function updateChart(bars, n, colorScale){
             return yScale(parseFloat(d[expressed])) + 5;
         })
         //color/recolor bars
-        .style("fill", function(d){            
-            var value = d[expressed];            
-            if(value) {                
-                return colorScale(value);            
-            } else {                
-                return "#ccc";            
-            }    
+        .style("fill", function(d){
+            var value = d[expressed];
+            if(value) {
+                return colorScale(value);
+            } else {
+                return "#ccc";
+            }
     });
 
 };
@@ -335,12 +335,12 @@ function changeAttribute(attribute, csvData){
         .transition()
         .duration(1000)
         .style("fill", function(d){
-            var value = d.properties[expressed];            
-            if(value) {                
-                return colorScale(value);           
-            } else {                
-                return "#ccc";            
-            }    
+            var value = d.properties[expressed];
+            if(value) {
+                return colorScale(value);
+            } else {
+                return "#ccc";
+            }
     });
     yScale = customizedYScale(csvData, expressed);
     yAxis = d3.axisLeft()
@@ -369,13 +369,13 @@ function changeAttribute(attribute, csvData){
             return yScale(parseFloat(d[expressed])) + topBottomPadding;
         })
         //recolor bars
-        .style("fill", function(d){            
-            var value = d[expressed];            
-            if(value) {                
-                return colorScale(value);            
-            } else {                
-                return "#ccc";            
-            }    
+        .style("fill", function(d){
+            var value = d[expressed];
+            if(value) {
+                return colorScale(value);
+            } else {
+                return "#ccc";
+            }
     });
 
     var chartTitle = d3.selectAll(".chartTitle")
@@ -476,7 +476,7 @@ function customizedYScale(csvData, expressed) {
         .range([0, 720])
         .domain(domain);
     return scale;
-}   
+}
 
 function handleZoom(e) {
     d3.selectAll('path')
