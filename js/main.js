@@ -2,8 +2,7 @@
 window.onload = setMap();
 var attrArray = ["Life_expectancy", "Adult_mortality",
 "Infant_deaths","Alcohol_consumption",'BMI'];
-var expressed = attrArray[0]; //initial attribute
-//execute script when window is loaded
+var expressed = attrArray[0];
 
 var chartWidth = window.innerWidth * 0.42,
     chartHeight = 730,
