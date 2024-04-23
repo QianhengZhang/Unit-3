@@ -5,7 +5,7 @@ var attrArray = ["Life_expectancy", "Adult_mortality",
 var expressed = attrArray[0];
 
 var chartWidth = window.innerWidth * 0.42,
-    chartHeight = 730,
+    chartHeight = 530,
     leftPadding = 25,
     rightPadding = 2,
     topBottomPadding = 5,
@@ -13,13 +13,13 @@ var chartWidth = window.innerWidth * 0.42,
     chartInnerHeight = chartHeight - topBottomPadding * 2
 
 var yScale = d3.scaleLinear()
-    .range([0, 720])
+    .range([0, 520])
     .domain([100, 0]);
 function setMap(){
 
         //map frame dimensions
     var width = window.innerWidth * 0.5,
-    height = 720;
+    height = 520;
     //create new svg container for the map
     var map = d3.select("body")
         .append("svg")
@@ -27,8 +27,8 @@ function setMap(){
         .attr("width", width)
         .attr("height", height);
     var mapTitle = map.append("text")
-        .attr("x", 20)
-        .attr("y", 80)
+        .attr("x", 220)
+        .attr("y", 30)
         .attr("class", "mapTitle")
         .text("Global Life Expectancy Map(Zoom and Pan allowed)");
     //create Albers equal area conic projection centered on France
@@ -180,7 +180,7 @@ function makeColorScale(data){
 function setChart(csvData, colorScale){
     //chart frame dimensions
     var chartWidth = window.innerWidth * 0.42,
-        chartHeight = 730,
+        chartHeight = 530,
         leftPadding = 25,
         rightPadding = 2,
         topBottomPadding = 5,
@@ -201,7 +201,7 @@ function setChart(csvData, colorScale){
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
     var yScale = d3.scaleLinear()
-        .range([0, 720])
+        .range([0, 520])
         .domain([100, 0]);
 
     //Example 2.4 line 8...set bars for each province
@@ -458,6 +458,7 @@ function moveLabel() {
         .style("top", y + "px");
 }
 
+//handles different scales for different data range
 function customizedYScale(csvData, expressed) {
     var array = [];
     for (i = 0; i <csvData.length; i++){
@@ -472,11 +473,12 @@ function customizedYScale(csvData, expressed) {
         var domain = [800, 0]
     }
     var scale = d3.scaleLinear()
-        .range([0, 720])
+        .range([0, 520])
         .domain(domain);
     return scale;
 }
 
+// add zoom function to the map
 function handleZoom(e) {
     d3.selectAll('path')
         .attr('transform', e.transform);
